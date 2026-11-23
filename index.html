@@ -493,20 +493,73 @@ body:after{right:-14vw;bottom:-18vh;background:linear-gradient(135deg,var(--m3),
 .modal{max-height:92vh;overflow:auto}
 .deadline .secondary{padding:6px 10px;font-size:12px;flex:none;align-self:center}
 .modal-actions .danger{margin-right:auto}
+
+/* ===== themed scenes (tema per sesi) ===== */
+#scene{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;transition:opacity .35s ease}
+#scene>div{position:absolute;inset:0}
+#scene svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+:root[data-theme=dark] #scene{filter:brightness(.52) saturate(1.1)}
+:root[data-theme=dark] #scene.dk{filter:brightness(.85)}
+.app{position:relative;z-index:1}
+body:not(.no-scene) .site{background:color-mix(in srgb,var(--bg) 84%,transparent)}
+body:not(.no-scene) .ticker{background:color-mix(in srgb,var(--card) 88%,transparent)}
+body:not(.no-scene) .page.active{background:color-mix(in srgb,var(--bg) 58%,transparent);border-radius:20px;padding:14px;margin:0 -14px}
+body:not(.no-scene) #p-game.active{background:none;padding:0;margin:0}
+body.sc-dark:not(.no-scene) .page.active{background:rgba(8,10,28,.5)}
+body.sc-dark:not(.no-scene) #p-game.active{background:none}
+body:not(.no-scene) .topbar{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px}
+body:not(.no-scene) .topbar>div:first-child{background:color-mix(in srgb,var(--card) 92%,transparent);border:2px solid var(--bd);border-radius:12px;padding:8px 16px;box-shadow:3px 3px 0 var(--sh)}
+.scene-pill{font:600 12px var(--mono);border:2px solid var(--bd);border-radius:999px;padding:6px 12px;background:color-mix(in srgb,var(--card) 92%,transparent);box-shadow:3px 3px 0 var(--sh);cursor:pointer;color:var(--text);display:inline-flex;gap:8px;align-items:center;white-space:nowrap;transition:transform .15s}
+.scene-pill span{color:var(--muted);font-weight:500}
+.scene-pill:hover{transform:translate(-1px,-1px)}
+.scene-pill[hidden]{display:none}
+.p{position:absolute;display:block;left:var(--x);top:0}
+.p.leaf,.p.petal{font-style:normal;line-height:1;font-size:var(--s);animation:scfall var(--t) linear var(--d) infinite}
+.p.leaf:before{content:"🍃"}.p.petal:before{content:"🌸"}
+.p.snow{width:var(--s);height:var(--s);border-radius:50%;background:#fff;opacity:.85;animation:scfall var(--t) linear var(--d) infinite}
+.p.rain{width:1.5px;height:calc(var(--s)*3);background:linear-gradient(transparent,rgba(200,220,255,.75));animation:scrain var(--t) linear var(--d) infinite}
+.p.bubble{width:var(--s);height:var(--s);border-radius:50%;border:1.5px solid rgba(255,255,255,.65);background:rgba(255,255,255,.12);animation:scrise var(--t) linear var(--d) infinite}
+.p.fly{top:var(--y);width:5px;height:5px;border-radius:50%;background:#fff3a0;box-shadow:0 0 10px 3px #ffe56a99;animation:scdrift2 var(--t) ease-in-out var(--d) infinite alternate,scblink 2.4s ease-in-out var(--d) infinite}
+.p.star{top:var(--y);width:var(--s);height:var(--s);border-radius:50%;background:#fff;animation:sctwk var(--t) ease-in-out var(--d) infinite alternate}
+.p.shoot{top:var(--y);width:130px;height:2px;background:linear-gradient(90deg,transparent,#fff);opacity:0;animation:scshoot var(--t) linear var(--d) infinite}
+.au{position:absolute;left:var(--x);top:6%;width:62%;height:40%;background:linear-gradient(90deg,transparent,var(--c),transparent);filter:blur(55px);opacity:.6;transform:rotate(var(--r));animation:scau var(--t) ease-in-out infinite alternate}
+.flash{background:#dfe8ff;opacity:0;animation:scflash 11s linear infinite}
+.wave{animation:scwv var(--d,9s) ease-in-out infinite alternate}
+.drift{animation:scdr var(--d,70s) ease-in-out infinite alternate}
+.sway{transform-box:fill-box;transform-origin:50% 100%;animation:scsw 4s ease-in-out infinite alternate}
+.swim{animation:scsm var(--d,30s) linear infinite}
+@keyframes scfall{from{transform:translate(0,-10vh) rotate(0)}50%{transform:translate(var(--w),50vh) rotate(180deg)}to{transform:translate(0,110vh) rotate(360deg)}}
+@keyframes scrain{from{transform:translate(0,-15vh) rotate(8deg)}to{transform:translate(-60px,112vh) rotate(8deg)}}
+@keyframes scrise{from{transform:translate(0,105vh)}to{transform:translate(var(--w),-12vh)}}
+@keyframes scdrift2{from{transform:translate(0,0)}to{transform:translate(var(--w),-40px)}}
+@keyframes scblink{0%,100%{opacity:.15}50%{opacity:1}}
+@keyframes sctwk{from{opacity:.15}to{opacity:1}}
+@keyframes scshoot{0%{transform:rotate(30deg) translateX(0);opacity:0}2%{opacity:1}10%{transform:rotate(30deg) translateX(700px);opacity:0}100%{transform:rotate(30deg) translateX(700px);opacity:0}}
+@keyframes scau{from{transform:rotate(var(--r)) translateX(-8%) scaleY(.8)}to{transform:rotate(var(--r)) translateX(8%) scaleY(1.25)}}
+@keyframes scflash{0%,91%,96%,100%{opacity:0}92%{opacity:.5}93%{opacity:0}94%{opacity:.35}}
+@keyframes scwv{from{transform:translateX(0)}to{transform:translateX(-180px)}}
+@keyframes scdr{from{transform:translateX(-120px)}to{transform:translateX(160px)}}
+@keyframes scsw{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+@keyframes scsm{from{transform:translateX(-200px)}to{transform:translateX(1700px)}}
+@media(prefers-reduced-motion:reduce){#scene *{animation:none!important}}
+.mus-chips{justify-content:flex-start}
+.prof-photo{display:flex;gap:12px;align-items:center;margin-bottom:6px}
+.prof-photo img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:50% 18%;border:2px solid var(--bd);background:var(--card2)}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"><meta name="theme-color" content="#fbf9f4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 </head>
 <body>
+<div id="scene" aria-hidden="true"></div>
 <div class="app">
 <header class="site"><div class="site-in">
  <div class="brand" onclick="showPage('dashboard')" title="Dashboard"><i>&gt;</i>campusflow</div>
  <div class="navs"><nav class="nav" id="navWork"></nav><nav class="nav" id="navPers"></nav></div>
- <div class="top-actions"><div class="date-pill" id="datePill"></div><button class="icon-btn" id="thBtn" title="Ganti tema" onclick="toggleTheme()">☾</button><button class="icon-btn" id="musBtn" title="Musik latar" onclick="toggleSiteMusic()">🎵</button><button class="icon-btn" id="sndBtn" title="Suara" onclick="toggleSound()">🔊</button><button class="icon-btn" title="Tambah tugas" onclick="openTask()">＋</button><button class="top-avatar" id="topAvatar" title="Profil" onclick="showPage('profile')"></button></div>
+ <div class="top-actions"><div class="date-pill" id="datePill"></div><button class="icon-btn" id="thBtn" title="Ganti tema" onclick="toggleTheme()">☾</button><button class="icon-btn" id="musBtn" title="Musik latar" onclick="toggleSiteMusic()">🎵</button><button class="icon-btn" id="musPick" title="Pilih tema lagu" onclick="openMusic()">🎼</button><button class="icon-btn" id="sndBtn" title="Suara" onclick="toggleSound()">🔊</button><button class="icon-btn" title="Tambah tugas" onclick="openTask()">＋</button><button class="top-avatar" id="topAvatar" title="Profil" onclick="showPage('profile')"></button></div>
 </div></header>
 <div class="ticker"><div><span>tugas</span><span>kalender</span><span>jadwal kuliah</span><span>mata kuliah</span><span>catatan</span><span>study room</span><span>cosmic snake</span><span>my files</span><span>tugas</span><span>kalender</span><span>jadwal kuliah</span><span>mata kuliah</span><span>catatan</span><span>study room</span><span>cosmic snake</span><span>my files</span></div></div>
 <div hidden><span id="miniAvatar"></span><b id="miniName"></b></div>
 <main>
- <header class="topbar"><div><span class="eyebrow" id="pageTag">&gt; dashboard</span><h1 id="pageTitle">Dashboard</h1></div></header>
+ <header class="topbar"><div><span class="eyebrow" id="pageTag">&gt; dashboard</span><h1 id="pageTitle">Dashboard</h1></div><button class="scene-pill" id="scenePill" title="Pilih tema lagu" onclick="openMusic()"></button></header>
  <section class="page active" id="p-dashboard"></section>
  <section class="page" id="p-tasks"></section>
  <section class="page" id="p-calendar"></section>
@@ -542,6 +595,17 @@ body:after{right:-14vw;bottom:-18vh;background:linear-gradient(135deg,var(--m3),
  <div class="field-row"><div class="field"><label>Jam mulai</label><input id="exStart" type="time"></div><div class="field"><label>Jam selesai</label><input id="exEnd" type="time"></div></div>
  <div class="field-row"><div class="field"><label>Ruang</label><input id="exRoom" placeholder="Contoh: Fisip D1.3"></div><div class="field"><label>No. kursi</label><input id="exSeat" inputmode="numeric" placeholder="21"></div></div>
  <div class="modal-actions"><button class="danger" id="exClear" onclick="clearExam()">Kosongkan</button><button class="secondary" onclick="closeExam()">Batal</button><button class="primary" onclick="saveExam()">Simpan jadwal</button></div></div></div>
+<div class="modal-backdrop" id="musModal" onclick="if(event.target===this)closeMusic()"><div class="modal"><h3>🎼 Tema lagu</h3><p class="muted" style="margin:0 0 10px;font-size:12px" id="musNow"></p><div class="mus-slot" id="musSlot"></div><p class="muted" style="font-size:11px;margin-top:12px">Lagu dibuat langsung oleh browser tanpa file audio, jadi ringan dan tetap jalan offline. Tombol suara (🔊) harus menyala.</p><div class="modal-actions"><button class="secondary" onclick="toggleSiteMusic();openMusic()">Nyala / mati</button><button class="primary" onclick="closeMusic()">Selesai</button></div></div></div>
+<div class="modal-backdrop" id="profModal" onclick="if(event.target===this)closeProfile()"><div class="modal"><h3>✎ Edit profil</h3>
+ <div class="prof-photo"><img id="profPrev" alt="Foto profil"><div class="btn-row"><button class="secondary" onclick="$('photoIn2').click()">Ganti foto</button><input type="file" id="photoIn2" accept="image/*" hidden onchange="setPhoto(this);setTimeout(()=>{const i=$('profPrev');if(i)i.src=photo()},500)"></div></div>
+ <div class="field"><label>Nama lengkap</label><input id="pfNama" maxlength="60" autocomplete="off"></div>
+ <div class="field-row"><div class="field"><label>NIM</label><input id="pfNim" maxlength="20" inputmode="numeric"></div><div class="field"><label>IP semester lalu</label><input id="pfIp" maxlength="4" inputmode="decimal" placeholder="3.35"></div></div>
+ <div class="field"><label>Program studi</label><input id="pfProdi" maxlength="60"></div>
+ <div class="field"><label>Universitas</label><input id="pfUniv" maxlength="60"></div>
+ <div class="field-row"><div class="field"><label>Kelas</label><input id="pfKelas" maxlength="30"></div><div class="field"><label>Maks SKS</label><input id="pfSks" type="number" min="1" max="40" inputmode="numeric"></div></div>
+ <div class="field"><label>Semester</label><input id="pfSem" maxlength="40"></div>
+ <div class="field"><label>Dosen PA</label><input id="pfPa" maxlength="80"></div>
+ <div class="modal-actions"><button class="danger" onclick="resetProfile()">Reset</button><button class="secondary" onclick="closeProfile()">Batal</button><button class="primary" onclick="saveProfile()">Simpan</button></div></div></div>
 <div class="toast" id="toast"></div>
 <script>
 /* ================= DATA ================= */
@@ -557,6 +621,7 @@ const COURSES=[
  {id:"SOS61116",name:"Perubahan Sosial",short:"Perubahan Sosial",sks:3,day:5,start:"10:10",end:"12:40",room:"F2.4",dosen:["Drs. Alfitri, MS","Drs. Yulkardi, M.Si"],materi:""},
  {id:"ISF60104",name:"Public Speaking",short:"Public Speaking",sks:3,day:5,start:"13:30",end:"16:00",room:"Fisip D1.3",dosen:["Dr. Jendrius, M.Si","Zuldesni, S.Sos, MA"],materi:""}
 ];
+const PROFILE_DEF=Object.assign({},PROFILE);
 const CMAP=Object.fromEntries(COURSES.map(c=>[c.id,c]));
 const cb=id=>CMAP[id]||{short:"—",name:"—"};
 function defaultTasks(){return[
@@ -569,11 +634,11 @@ function defaultTasks(){return[
  {id:"t7",title:"Presentasi rancangan projek UAS kelompok 9–12",courseId:"SOS61118",date:"2026-11-26",priority:"High",detail:"Rancangan projek UAS"},
  {id:"t8",title:"Laporan kelompok & resume pribadi tugas 9",courseId:"SOS61118",date:"2026-11-26",priority:"Medium",detail:"Tema: Gender dan Kesehatan"}
 ]}
-function defaults(){return{tasks:defaultTasks(),exams:defaultExams(),notes:{},sessions:[],photo:null,krsApproved:false,notified:{},settings:{notify:false,focus:25,brk:5,sound:true,volume:.5,music:true},game:{best:0,plays:0,kills:0,name:""}}}
+function defaults(){return{tasks:defaultTasks(),exams:defaultExams(),notes:{},sessions:[],photo:null,krsApproved:false,notified:{},settings:{notify:false,focus:25,brk:5,sound:true,volume:.5,music:true,musicTheme:"auto",scenes:true},game:{best:0,plays:0,kills:0,name:""}}}
 
 /* ================= STORE ================= */
 const KEY="campusflow.v2";
-let S=load();
+let S=load();if(S.profile)Object.assign(PROFILE,S.profile);
 function load(){try{const r=JSON.parse(localStorage.getItem(KEY));if(r&&Array.isArray(r.tasks)){const d=defaults();return Object.assign(d,r,{settings:Object.assign(d.settings,r.settings||{}),game:Object.assign(d.game,r.game||{})})}}catch(e){}return defaults()}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast("Penyimpanan browser penuh atau diblokir")}}
 
@@ -619,7 +684,7 @@ function buildNav(){const mk=ids=>ids.map(id=>`<button data-page="${id}" onclick
 function showPage(id){if(!PAGES[id])id="dashboard";if(cur==="game"&&id!=="game")Game.leave();cur=id;
  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="p-"+id));
  document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
- $("pageTitle").textContent=PAGES[id][0];$("pageTag").textContent="> "+id;closeSheet();RENDER[id]();window.scrollTo(0,0)}
+ $("pageTitle").textContent=PAGES[id][0];$("pageTag").textContent="> "+id;closeSheet();applyScene(id);RENDER[id]();window.scrollTo(0,0);if((S.settings.musicTheme||"auto")==="auto"&&SFX.ready())SFX.site()}
 function openSheet(){$("sheet").classList.add("show")}function closeSheet(){$("sheet").classList.remove("show")}
 function renderChrome(){const im=`<img src="${photo()}" alt="${esc(PROFILE.nama)}">`;$("miniAvatar").innerHTML=im;$("topAvatar").innerHTML=im;$("miniName").textContent=PROFILE.nama;
  syncSoundUI();const t=today();$("datePill").textContent="◷  "+HARI[t.getDay()]+", "+fmtLong(t)}
@@ -804,10 +869,10 @@ async function rmFile(id){if(!confirm("Hapus berkas ini dari perangkat?"))return
 /* ================= PROFILE ================= */
 function renderProfile(){
  const done=S.tasks.filter(t=>t.done).length,tot=S.sessions.reduce((a,s)=>a+s.min,0),sks=COURSES.reduce((a,c)=>a+c.sks,0);
- $("p-profile").innerHTML=`<div class="panel"><div class="panel-head"><h3>My Profile</h3><span class="tag purple">Kartu identitas mahasiswa</span></div>
+ $("p-profile").innerHTML=`<div class="panel"><div class="panel-head"><h3>My Profile</h3><div class="btn-row" style="margin:0"><span class="tag purple">Kartu identitas mahasiswa</span><button class="primary" onclick="openProfile()">✎ Edit profil</button></div></div>
  <div class="id-card"><div><img class="idphoto" src="${photo()}" alt="Foto ${esc(PROFILE.nama)}"><div class="btn-row" style="margin-top:10px"><button class="secondary" onclick="$('photoIn').click()">Ganti foto</button>${S.photo?'<button class="secondary" onclick="resetPhoto()">Reset</button>':""}</div><input type="file" id="photoIn" accept="image/*" hidden onchange="setPhoto(this)"></div>
  <div class="id-data"><div class="eyebrow">${esc(PROFILE.univ.toUpperCase())}</div><h2>${esc(PROFILE.nama)}</h2><div class="muted">Mahasiswa ${esc(PROFILE.prodi.replace("S1 ",""))} · ${esc(PROFILE.univ)}</div>
- <div class="kv"><span>NIM</span><b>${PROFILE.nim}</b><span>Program Studi</span><b>${esc(PROFILE.prodi)}</b><span>Kelas</span><b>${esc(PROFILE.kelas)}</b><span>Semester</span><b>${esc(PROFILE.semester)}</b><span>Dosen PA</span><b>${esc(PROFILE.pa)}</b><span>IP semester lalu</span><b>${PROFILE.ip}</b><span>Beban SKS</span><b>${sks} dari maks ${PROFILE.maxSks}</b><span>Status KRS</span><b><span class="tag ${S.krsApproved?"green":"orange"}">${S.krsApproved?"Sudah disetujui":"Belum disetujui"}</span></b></div>
+ <div class="kv"><span>NIM</span><b>${esc(PROFILE.nim)}</b><span>Program Studi</span><b>${esc(PROFILE.prodi)}</b><span>Kelas</span><b>${esc(PROFILE.kelas)}</b><span>Semester</span><b>${esc(PROFILE.semester)}</b><span>Dosen PA</span><b>${esc(PROFILE.pa)}</b><span>IP semester lalu</span><b>${esc(PROFILE.ip)}</b><span>Beban SKS</span><b>${sks} dari maks ${PROFILE.maxSks}</b><span>Status KRS</span><b><span class="tag ${S.krsApproved?"green":"orange"}">${S.krsApproved?"Sudah disetujui":"Belum disetujui"}</span></b></div>
  <div class="btn-row"><button class="secondary" onclick="S.krsApproved=!S.krsApproved;save();renderProfile()">${S.krsApproved?"Tandai belum disetujui":"Tandai KRS sudah disetujui"}</button></div>
  <p class="muted" style="font-size:11px;margin-top:10px">Catatan KRS: yang sudah disetujui diminta kembali tandatangan ke Dosen PA masing-masing.</p></div></div></div>
  <div class="stats"><div class="stat"><div class="stat-top">Tugas selesai</div><strong>${done}/${S.tasks.length}</strong></div><div class="stat"><div class="stat-top">Total fokus</div><strong>${fmtMin(tot)}</strong></div><div class="stat"><div class="stat-top">Streak</div><strong>${streak()} 🔥</strong></div><div class="stat"><div class="stat-top">Catatan</div><strong>${Object.keys(S.notes).length}</strong></div></div>
@@ -822,6 +887,9 @@ function renderSettings(){
  <div class="set-row"><div><b>Pengingat deadline (H-1)</b><p>Notifikasi browser untuk tugas yang jatuh tempo hari ini dan besok. Hanya muncul saat CampusFlow terbuka di browser. Status: <span id="notifState">${notifState()}</span></p></div><button class="${S.settings.notify?"secondary":"primary"}" onclick="toggleNotify()">${S.settings.notify?"Matikan":"Aktifkan"}</button></div>
  <div class="set-row"><div><b>Efek suara</b><p>Bunyi saat klik, centang tugas, timer selesai, dan di dalam game.</p></div><button class="${S.settings.sound?"secondary":"primary"}" onclick="toggleSound()">${S.settings.sound?"Matikan":"Nyalakan"}</button></div>
  <div class="set-row"><div><b>Volume</b><p>Atur keras suaranya.</p></div><input type="range" min="0" max="100" value="${Math.round(S.settings.volume*100)}" oninput="setVolume(this.value)" onchange="SFX.check()" style="width:160px;accent-color:#947aff"></div>
+ <div class="set-row"><div><b>Tema lagu</b><p>Pilih gaya musik latar. “Otomatis” mengganti lagu sesuai tema halaman.</p><div class="mus-slot">${musicChips()}</div></div></div>
+ <div class="set-row"><div><b>Tema halaman</b><p>Latar animasi berbeda untuk tiap sesi: Jadwal pantai, Tugas hutan, Fokus luar angkasa, dan lainnya.</p></div><button class="${S.settings.scenes!==false?"secondary":"primary"}" onclick="toggleScenes()">${S.settings.scenes!==false?"Matikan":"Nyalakan"}</button></div>
+ <div class="set-row"><div><b>Edit profil</b><p>Ubah nama, NIM, program studi, kelas, dan data kartu mahasiswa.</p></div><button class="primary" onclick="openProfile()">✎ Edit profil</button></div>
  <div class="set-row"><div><b>Musik latar website</b><p>Musik ambient pelan yang mengalir saat kamu membuka CampusFlow.</p></div><button class="${S.settings.siteMusic!==false?"secondary":"primary"}" onclick="toggleSiteMusic()">${S.settings.siteMusic!==false?"Matikan":"Nyalakan"}</button></div>
  <div class="set-row"><div><b>Musik di game</b><p>Musik latar pelan saat bermain Cosmic Snake.</p></div><button class="${S.settings.music?"secondary":"primary"}" onclick="toggleMusic()">${S.settings.music?"Matikan":"Nyalakan"}</button></div>
  <div class="set-row"><div><b>Ekspor data</b><p>Unduh semua tugas, catatan, sesi fokus, dan foto profil sebagai file JSON.</p></div><button class="secondary" onclick="exportData()">Ekspor JSON</button></div>
@@ -832,8 +900,8 @@ function toggleNotify(){if(S.settings.notify){S.settings.notify=false;save();ren
  if(!("Notification" in window)){toast("Browser tidak mendukung notifikasi");return}
  Notification.requestPermission().then(p=>{if(p==="granted"){S.settings.notify=true;save();toast("Pengingat diaktifkan");notify("CampusFlow","Pengingat deadline aktif.");checkReminders()}else toast("Izin notifikasi tidak diberikan");renderSettings()})}
 function exportData(){const blob=new Blob([JSON.stringify({app:"CampusFlow",version:2,exportedAt:new Date().toISOString(),data:S},null,1)],{type:"application/json"}),u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download="campusflow-backup-"+iso(today())+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000);toast("Cadangan diunduh")}
-function importData(inp){const f=inp.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const j=JSON.parse(rd.result),d=j.data||j;if(!d||!Array.isArray(d.tasks))throw 0;if(!confirm("Ganti semua data saat ini dengan isi file ini?"))return;const b=defaults();S=Object.assign(b,d,{settings:Object.assign(b.settings,d.settings||{}),game:Object.assign(b.game,d.game||{})});save();setMode("focus");renderChrome();RENDER[cur]();toast("Data berhasil dipulihkan")}catch(e){toast("File cadangan tidak valid")}inp.value=""};rd.readAsText(f)}
-function resetAll(){if(!confirm("Kembalikan semua data ke awal? Tindakan ini tidak bisa dibatalkan."))return;S=defaults();save();setMode("focus");renderChrome();RENDER[cur]();toast("Data dikembalikan")}
+function importData(inp){const f=inp.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const j=JSON.parse(rd.result),d=j.data||j;if(!d||!Array.isArray(d.tasks))throw 0;if(!confirm("Ganti semua data saat ini dengan isi file ini?"))return;const b=defaults();S=Object.assign(b,d,{settings:Object.assign(b.settings,d.settings||{}),game:Object.assign(b.game,d.game||{})});applyProfile();save();setMode("focus");renderChrome();RENDER[cur]();toast("Data berhasil dipulihkan")}catch(e){toast("File cadangan tidak valid")}inp.value=""};rd.readAsText(f)}
+function resetAll(){if(!confirm("Kembalikan semua data ke awal? Tindakan ini tidak bisa dibatalkan."))return;S=defaults();applyProfile();save();setMode("focus");renderChrome();RENDER[cur]();toast("Data dikembalikan")}
 
 /* ================= REMINDERS ================= */
 function checkReminders(){
@@ -851,8 +919,8 @@ const SFX=(()=>{let ctx=null,mg=null,nb=null,bo=null,mus=null,step=0,sm=null,sst
  const arp=(fs,dur,o)=>fs.forEach((f,i)=>tone(f,dur,Object.assign({},o,{d:i*(o.gap||.07)})));
  return{
   unlock(){if(on()){init();if(!sm)SFX.site()}},
-   site(){clearInterval(sm);sm=null;const ok=()=>on()&&S.settings.siteMusic!==false&&!mus;if(!ok()||!init())return;sstep=0;const ch=[[220,261.6,329.6],[174.6,220,261.6],[261.6,329.6,392],[196,246.9,293.7]],pt=[0,1,2,1,2,1,0,1];
-    sm=setInterval(()=>{if(!ok()){clearInterval(sm);sm=null;return}const s=sstep%8,c=ch[Math.floor(sstep/8)%4];tone(c[pt[s]]*2,1,{v:.03});if(s===0)c.forEach(f=>tone(f/2,3.4,{v:.028}));sstep++},450)},vol(){if(mg)mg.gain.value=S.settings.volume},
+   site(){clearInterval(sm);sm=null;const ok=()=>on()&&S.settings.siteMusic!==false&&!mus;if(!ok()||!init())return;sstep=0;const P=curMusic(),pt=P.pt;
+    sm=setInterval(()=>{if(!ok()){clearInterval(sm);sm=null;return}const s=sstep%pt.length,c=P.ch[Math.floor(sstep/pt.length)%P.ch.length];tone(c[pt[s]%c.length]*P.oct,P.nd,{type:P.type,v:P.v});if(s===0)c.forEach(f=>tone(f/2,P.pad,{type:P.padType||"sine",v:P.padV}));musicBed(P,sstep,tone,noise);sstep++},P.ms)},ready(){return!!ctx},vol(){if(mg)mg.gain.value=S.settings.volume},
   click(){tone(640,.06,{type:"triangle",to:430,v:.13})},
   nav(){tone(520,.07,{v:.13});tone(780,.1,{v:.12,d:.06})},
   check(){arp([523,659,784],.15,{type:"triangle",v:.15})},
@@ -1115,6 +1183,110 @@ function mcToday(){const t=today();MC.m=new Date(t.getFullYear(),t.getMonth(),1)
  new MutationObserver(()=>{dash.querySelectorAll(".stat strong").forEach((s,i)=>{const m=s.textContent.match(/^(\d+)(%?)$/);if(!m)return;const to=+m[1],suf=m[2],from=prev[i]||0;prev[i]=to;if(RM||from===to)return;const t0=performance.now();
   (function f(n){const k=Math.min(1,(n-t0)/800),e=1-Math.pow(1-k,3);s.textContent=Math.round(from+(to-from)*e)+suf;if(k<1)requestAnimationFrame(f)})(t0)})}).observe(dash,{childList:true});
 })();
+/* ================= THEMED SCENES (tema per sesi) ================= */
+const RMO=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const SC_OF={dashboard:"sunset",tasks:"forest",calendar:"sakura",schedule:"beach",exams:"rain",courses:"mountain",notes:"snow",study:"space",game:"arcade",files:"ocean",profile:"aurora",settings:"desert"};
+const scR=(a,b)=>a+Math.random()*(b-a);
+function scFx(kind,n,o){o=o||{};if(RMO)n=Math.ceil(n/3);let h="";for(let i=0;i<n;i++){const t=scR(o.t0||8,o.t1||16);h+=`<i class="p ${kind}" style="--x:${scR(0,100).toFixed(1)}%;--y:${scR(o.y0||0,o.y1||100).toFixed(1)}%;--s:${scR(o.s0||4,o.s1||9).toFixed(1)}px;--t:${t.toFixed(1)}s;--d:${(-scR(0,t)).toFixed(1)}s;--w:${scR(-60,60).toFixed(0)}px"></i>`}return h}
+const scSvg=i=>`<svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">${i}</svg>`;
+function scPines(y,h,fill,n,op){let s="";for(let i=0;i<n;i++){const x=i*(1480/(n-1))-20+scR(-25,25),w=h*scR(.26,.38),hh=h*scR(.8,1.15);
+ s+=`<path d="M${(x-w).toFixed(0)} ${y}L${x.toFixed(0)} ${(y-hh).toFixed(0)}L${(x+w).toFixed(0)} ${y}Z" fill="${fill}" opacity="${op}"/>`;
+ s+=`<path d="M${(x-w*.75).toFixed(0)} ${(y-hh*.4).toFixed(0)}L${x.toFixed(0)} ${(y-hh*1.12).toFixed(0)}L${(x+w*.75).toFixed(0)} ${(y-hh*.4).toFixed(0)}Z" fill="${fill}" opacity="${op}"/>`}
+ return s+`<rect y="${y-2}" width="1440" height="${900-y+2}" fill="${fill}" opacity="${op}"/>`}
+function scPeaks(y,amp,fill,op){let d=`M0 900 L0 ${y}`;for(let x=0;x<=1440;x+=160)d+=` L${x+80} ${(y-scR(amp*.5,amp)).toFixed(0)} L${x+160} ${(y-scR(0,amp*.25)).toFixed(0)}`;return`<path d="${d} L1600 900Z" fill="${fill}" opacity="${op}"/>`}
+function scCity(y,fill){let s="",x=-10;while(x<1450){const w=scR(40,90),h=scR(80,320);s+=`<rect x="${x.toFixed(0)}" y="${(y-h).toFixed(0)}" width="${w.toFixed(0)}" height="${h.toFixed(0)}" fill="${fill}"/>`;x+=w+scR(0,6)}return s+`<rect y="${y-1}" width="1440" height="${901-y}" fill="${fill}"/>`}
+const scDune=(y,fill,amp)=>`<path d="M0 900 L0 ${y} Q 360 ${y-amp} 720 ${y+amp*.2} T 1440 ${y-amp*.4} L1440 900Z" fill="${fill}"/>`;
+const scWave=y=>`M-360 ${y} q90 -26 180 0`+" t180 0".repeat(11)+` L1800 900 L-360 900Z`;
+const scCloud=(x,y,s,d,f)=>`<g class="drift" style="--d:${d}s" opacity=".88"><g transform="translate(${x} ${y}) scale(${s})" fill="${f||"#fff"}"><ellipse cx="0" cy="0" rx="70" ry="22"/><ellipse cx="-34" cy="-14" rx="36" ry="24"/><ellipse cx="22" cy="-22" rx="42" ry="28"/></g></g>`;
+
+const SCENES={
+ sunset:{name:"Senja Kota",icon:"🌇",music:"lofi",dark:false,bg:"linear-gradient(180deg,#3b2a6b 0%,#a8457d 38%,#ff7a6b 62%,#ffc371 100%)",
+  art:()=>scSvg(`<circle cx="720" cy="560" r="170" fill="#ffd27a" opacity=".9"/>${scCloud(260,200,1.4,90,"#ffb3a0")}${scCloud(1100,150,1.1,120,"#ffc9a8")}${scCity(900,"#3a2260")}${scCity(900,"#2a1748")}`)},
+ forest:{name:"Hutan",icon:"🌲",music:"hutan",dark:false,bg:"linear-gradient(180deg,#d9f5c6 0%,#9bd89a 45%,#4aa36a 100%)",
+  art:()=>scSvg(`<circle cx="1180" cy="170" r="140" fill="#fffbd0" opacity=".5"/><path d="M1100 0L1250 0L900 900L700 900Z" fill="#fff" opacity=".1"/><path d="M1300 0L1380 0L1150 900L1050 900Z" fill="#fff" opacity=".08"/>${scPines(700,300,"#7fc58a",9,.55)}${scPines(790,300,"#4fa070",10,.8)}${scPines(900,300,"#1f6b47",9,1)}`),
+  fx:()=>scFx("leaf",14,{s0:14,s1:24,t0:9,t1:18})+scFx("fly",16,{y0:40,y1:95,t0:4,t1:9})},
+ sakura:{name:"Taman Sakura",icon:"🌸",music:"ambient",dark:false,bg:"linear-gradient(180deg,#ffe3ee 0%,#ffc8dd 55%,#ffeaf2 100%)",
+  art:()=>scSvg(`<path d="M1440 80 C1250 120 1150 90 980 190 S760 220 640 330" stroke="#6b4136" stroke-width="12" fill="none" stroke-linecap="round"/>${[[1380,90],[1250,120],[1120,100],[1000,170],[880,205],[760,250],[660,330]].map(([x,y])=>Array.from({length:7},()=>`<circle cx="${(x+scR(-45,45)).toFixed(0)}" cy="${(y+scR(-40,40)).toFixed(0)}" r="${scR(9,20).toFixed(0)}" fill="${Math.random()<.5?"#ffb3cf":"#ff8fb8"}" opacity=".9"/>`).join("")).join("")}${scDune(820,"#ffd3e3",60)}${scDune(870,"#ffb9d3",50)}`),
+  fx:()=>scFx("petal",20,{s0:12,s1:22,t0:10,t1:20})},
+ beach:{name:"Pantai",icon:"🏖",music:"pantai",dark:false,bg:"linear-gradient(180deg,#58c8ff 0%,#a8e8ff 50%,#fff0c4 100%)",
+  art:()=>scSvg(`<defs><linearGradient id="gsea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3fd0dc"/><stop offset="1" stop-color="#0f8fb8"/></linearGradient><radialGradient id="gsun"><stop offset="0" stop-color="#fff6b8"/><stop offset=".45" stop-color="#ffe27a" stop-opacity=".7"/><stop offset="1" stop-color="#ffe27a" stop-opacity="0"/></radialGradient></defs>
+<circle cx="1150" cy="190" r="200" fill="url(#gsun)"/><circle cx="1150" cy="190" r="60" fill="#fff3a6"/>${scCloud(300,140,1.3,80)}${scCloud(760,90,.9,110)}${scCloud(1250,300,1,95)}
+<rect y="520" width="1440" height="380" fill="url(#gsea)"/><rect y="520" width="1440" height="3" fill="#fff" opacity=".5"/>
+<g class="wave" style="--d:8s"><path d="${scWave(590)}" fill="#fff" opacity=".22"/></g><g class="wave" style="--d:11s;animation-delay:-3s"><path d="${scWave(640)}" fill="#fff" opacity=".28"/></g><g class="wave" style="--d:7s;animation-delay:-1.5s"><path d="${scWave(700)}" fill="#fff" opacity=".4"/></g>
+<path d="M0 770 Q330 725 700 758 T1440 745 L1440 900 L0 900Z" fill="#f7dea0"/><path d="M0 830 Q400 800 800 825 T1440 815 L1440 900 L0 900Z" fill="#eac77a"/>
+<g transform="translate(150 900)"><path d="M0 0 Q40 -150 -10 -300" stroke="#7a5230" stroke-width="16" fill="none" stroke-linecap="round"/><g transform="translate(-10 -300)">${[-165,-125,-80,-30,20,60].map(a=>`<path d="M0 0 Q70 -60 150 -8 Q75 -28 0 0Z" fill="#23a05f" transform="rotate(${a})"/>`).join("")}</g></g>`)},
+ rain:{name:"Hujan Malam",icon:"🌧",music:"hujan",dark:true,bg:"linear-gradient(180deg,#0f1b2e 0%,#22364f 60%,#34506b 100%)",
+  art:()=>scSvg(`<circle cx="1180" cy="150" r="60" fill="#dfe8ff" opacity=".45"/>${scCloud(300,130,1.8,100,"#3d5069")}${scCloud(900,100,1.6,130,"#34465e")}${scCity(900,"#16253a")}${scCity(900,"#0b1422")}`),
+  fx:()=>scFx("rain",70,{s0:6,s1:14,t0:.7,t1:1.4})+'<div class="flash"></div>'},
+ mountain:{name:"Pegunungan",icon:"⛰",music:"ambient",dark:false,bg:"linear-gradient(180deg,#8ec5ff 0%,#ffd9b0 62%,#ffeccf 100%)",
+  art:()=>scSvg(`<circle cx="300" cy="230" r="70" fill="#fff1c4"/>${scCloud(700,170,1.2,100)}${scCloud(1150,260,1,85)}<g class="drift" style="--d:50s"><path d="M900 200q10 -10 20 0q10 -10 20 0M960 230q8 -8 16 0q8 -8 16 0" stroke="#2c3e50" stroke-width="3" fill="none"/></g>${scPeaks(640,260,"#9bb7d9",.6)}${scPeaks(740,230,"#6f8fbd",.85)}${scPeaks(840,200,"#3f5f8a",1)}`)},
+ snow:{name:"Salju Tenang",icon:"❄",music:"lofi",dark:false,bg:"linear-gradient(180deg,#a9c8ec 0%,#d6e7f8 55%,#f4f9ff 100%)",
+  art:()=>scSvg(`${scPines(780,220,"#5d7fa6",9,.55)}${scPines(860,180,"#3f5f8a",11,.85)}<path d="M0 850 Q400 810 800 845 T1440 830 L1440 900 L0 900Z" fill="#fff"/>`),
+  fx:()=>scFx("snow",60,{s0:3,s1:8,t0:8,t1:16})},
+ space:{name:"Luar Angkasa",icon:"🪐",music:"angkasa",dark:true,bg:"radial-gradient(ellipse at 20% 80%,#3a1a7a66,transparent 50%),radial-gradient(ellipse at 85% 20%,#1a4a9a55,transparent 45%),linear-gradient(180deg,#04051a,#0d0b33 60%,#1b1048)",
+  art:()=>scSvg(`<defs><radialGradient id="gpl" cx=".35" cy=".3"><stop offset="0" stop-color="#ffb98a"/><stop offset=".6" stop-color="#d9638f"/><stop offset="1" stop-color="#5a2a86"/></radialGradient></defs><ellipse cx="1120" cy="260" rx="190" ry="42" fill="none" stroke="#e8c9ff" stroke-opacity=".55" stroke-width="6" transform="rotate(-18 1120 260)"/><circle cx="1120" cy="260" r="105" fill="url(#gpl)"/><circle cx="260" cy="640" r="36" fill="#cfd4e8"/><circle cx="248" cy="630" r="7" fill="#aab1cc"/><circle cx="274" cy="652" r="5" fill="#aab1cc"/>`),
+  fx:()=>scFx("star",90,{s0:1,s1:3.2,t0:2,t1:6})+scFx("shoot",3,{y0:0,y1:40,t0:9,t1:16})},
+ arcade:{name:"Neon Arcade",icon:"🕹",music:"ambient",dark:true,bg:"linear-gradient(180deg,#14052e 0%,#2a0a55 55%,#4a0f6b 100%)",
+  art:()=>{let g="";for(let i=-12;i<=12;i++)g+=`<line x1="${720+i*40}" y1="560" x2="${720+i*230}" y2="900" stroke="#ff2bd6" stroke-opacity=".6" stroke-width="2"/>`;for(let k=1;k<=10;k++){const y=560+Math.pow(k/10,2)*340;g+=`<line x1="0" y1="${y.toFixed(0)}" x2="1440" y2="${y.toFixed(0)}" stroke="#ff2bd6" stroke-opacity=".6" stroke-width="2"/>`}
+   return scSvg(`<defs><linearGradient id="gns" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe14d"/><stop offset="1" stop-color="#ff2b8a"/></linearGradient></defs><circle cx="720" cy="480" r="170" fill="url(#gns)"/>${[0,1,2,3,4].map(i=>`<rect x="540" y="${500+i*20}" width="360" height="${3+i*2}" fill="#2a0a55"/>`).join("")}<rect y="560" width="1440" height="340" fill="#14052e"/>${g}`)}},
+ ocean:{name:"Bawah Laut",icon:"🐠",music:"pantai",dark:true,bg:"linear-gradient(180deg,#2ab3d4 0%,#0b6aa3 40%,#06284f 100%)",
+  art:()=>scSvg(`<path d="M300 0L420 0L700 900L420 900Z" fill="#fff" opacity=".06"/><path d="M800 0L900 0L1150 900L900 900Z" fill="#fff" opacity=".06"/>${[120,260,1180,1320].map(x=>`<path class="sway" d="M${x} 900q20 -60 0 -120q-20 -60 0 -120q20 -60 0 -110" stroke="#1f9e6a" stroke-width="10" fill="none" stroke-linecap="round"/>`).join("")}<path d="M0 850 Q360 820 720 848 T1440 835 L1440 900 L0 900Z" fill="#d9c27f"/><ellipse cx="620" cy="880" rx="70" ry="30" fill="#5a6b7a"/><ellipse cx="860" cy="888" rx="50" ry="22" fill="#4a5a69"/>${[[220,"#ffb347",34],[470,"#ff6f91",46],[330,"#ffd166",26],[610,"#7be0d0",40]].map(([y,c,d])=>`<g transform="translate(0 ${y})"><g class="swim" style="--d:${d}s;animation-delay:-${scR(0,d).toFixed(0)}s"><path d="M0 0q20 -14 44 0q-24 14 -44 0zM44 0l14 -9v18z" fill="${c}"/></g></g>`).join("")}`),
+  fx:()=>scFx("bubble",22,{s0:6,s1:22,t0:9,t1:18})},
+ aurora:{name:"Aurora",icon:"🌌",music:"angkasa",dark:true,bg:"radial-gradient(ellipse at 50% 100%,#0b2a3a,transparent 60%),linear-gradient(180deg,#050816,#0a1a2f 70%,#0c2a3c)",
+  art:()=>scSvg(`${scPines(900,260,"#06121c",12,1)}`),
+  fx:()=>`<div class="au" style="--c:#38f9b4;--x:-5%;--r:-8deg;--t:14s"></div><div class="au" style="--c:#7a6bff;--x:25%;--r:4deg;--t:18s"></div><div class="au" style="--c:#38c8f9;--x:40%;--r:-3deg;--t:22s"></div>`+scFx("star",40,{y0:0,y1:60,s0:1,s1:2.6,t0:2,t1:6})},
+ desert:{name:"Gurun Senja",icon:"🏜",music:"ambient",dark:false,bg:"linear-gradient(180deg,#ffd9a0 0%,#ffb27a 55%,#f08a5d 100%)",
+  art:()=>scSvg(`<circle cx="720" cy="470" r="130" fill="#fff0b3" opacity=".9"/>${scDune(640,"#f6b784",70)}${scDune(730,"#e8946a",80)}${scDune(820,"#c9704f",60)}<path d="M1113 740v-30h-40v-50M1113 740v-70h40v-40M1113 700V610" stroke="#3a7d44" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`)}
+};
+
+function paintPill(){const p=$("scenePill");if(!p)return;const on=S.settings.scenes!==false,d=SCENES[SC_OF[cur]||"sunset"];p.hidden=!on;if(on)p.innerHTML=`${d.icon} ${esc(d.name)} <span>♪ ${esc(musicName())}</span>`}
+function applyScene(id){const sc=$("scene"),k=SC_OF[id]||"sunset",d=SCENES[k],on=S.settings.scenes!==false;
+ document.body.classList.toggle("no-scene",!on);document.body.classList.toggle("sc-dark",!!d.dark);document.body.dataset.scene=k;paintPill();
+ if(!on){sc.innerHTML="";sc.dataset.k="";return}
+ if(sc.dataset.k===k)return;const first=!sc.dataset.k;sc.dataset.k=k;
+ const build=()=>{sc.className=d.dark?"dk":"";sc.innerHTML=`<div style="background:${d.bg}"></div><div>${d.art()}</div><div>${d.fx?d.fx():""}</div>`;sc.style.opacity=1};
+ if(first){build();return}sc.style.opacity=0;setTimeout(()=>{if(sc.dataset.k===k)build()},260)}
+function toggleScenes(){S.settings.scenes=S.settings.scenes===false;save();$("scene").dataset.k="";applyScene(cur);if(cur==="settings")renderSettings()}
+
+/* ================= TEMA LAGU ================= */
+const MUSIC={
+ auto:{name:"Otomatis",icon:"✨",desc:"Lagu berganti mengikuti tema halaman yang sedang dibuka."},
+ ambient:{name:"Ambient Klasik",icon:"🎵",desc:"Pad lembut dan arpeggio pelan, lagu bawaan CampusFlow.",ms:450,ch:[[220,261.6,329.6],[174.6,220,261.6],[261.6,329.6,392],[196,246.9,293.7]],pt:[0,1,2,1,2,1,0,1],oct:2,nd:1,type:"sine",v:.03,pad:3.4,padV:.028},
+ pantai:{name:"Santai Pantai",icon:"🏝",desc:"Marimba riang dengan debur ombak.",ms:380,ch:[[196,246.9,293.7,392],[220,277.2,329.6,440],[246.9,293.7,370,493.9],[220,277.2,329.6,415.3]],pt:[0,2,3,2,1,3,2,1],oct:2,nd:.55,type:"triangle",v:.045,pad:3,padV:.02,bed:"ocean"},
+ hutan:{name:"Hutan Tenang",icon:"🌲",desc:"Seruling pelan dan kicau burung.",ms:560,ch:[[220,261.6,329.6],[261.6,329.6,392],[196,246.9,293.7],[164.8,196,246.9]],pt:[2,0,1,2,1,0,2,1],oct:4,nd:1.4,type:"sine",v:.032,pad:4,padV:.024,bed:"birds"},
+ angkasa:{name:"Melayang Angkasa",icon:"🪐",desc:"Pad luas yang pelan dengan denting bintang.",ms:720,ch:[[110,164.8,220,329.6],[98,146.8,196,293.7],[130.8,196,261.6,392],[116.5,174.6,233.1,349.2]],pt:[0,2,1,3,2,1,3,0],oct:2,nd:2.2,type:"sine",v:.022,pad:5.5,padV:.04,padType:"triangle",bed:"sparkle"},
+ lofi:{name:"Lo-fi Belajar",icon:"☕",desc:"Kord jazzy santai untuk menemani belajar.",ms:430,ch:[[261.6,329.6,392,493.9],[220,261.6,329.6,392],[293.7,349.2,440,523.3],[196,246.9,293.7,349.2]],pt:[0,2,1,3,2,1,3,2],oct:1,nd:.7,type:"triangle",v:.045,pad:3.2,padV:.03,bed:"vinyl"},
+ hujan:{name:"Hujan & Piano",icon:"🌧",desc:"Piano sepi ditemani rintik hujan.",ms:620,ch:[[220,261.6,329.6],[174.6,220,261.6],[261.6,329.6,392],[196,246.9,293.7]],pt:[0,2,1,2,0,1,2,1],oct:2,nd:1.6,type:"sine",v:.04,pad:4,padV:.022,bed:"rain"}
+};
+function musicBed(P,st,tone,noise){const b=P.bed;if(!b)return;
+ if(b==="ocean"){if(st%12===0)noise(5,250,1000,.05)}
+ else if(b==="rain"){noise(.14,4200,5200,.018);if(Math.random()<.5)noise(.1,3000,4200,.014)}
+ else if(b==="birds"){if(Math.random()<.2){const f=2300+Math.random()*900;tone(f,.1,{to:f*1.35,v:.022});tone(f*1.1,.09,{to:f*1.5,v:.018,d:.14})}}
+ else if(b==="sparkle"){if(Math.random()<.35)tone([1319,1568,1760,2093,2349][Math.floor(Math.random()*5)],1.4,{v:.014})}
+ else if(b==="vinyl"){if(Math.random()<.6)noise(.04,3500,6500,.01)}}
+function curMusic(){let k=S.settings.musicTheme||"auto";if(k==="auto"||!MUSIC[k]||!MUSIC[k].ch)k=SCENES[SC_OF[cur]||"sunset"].music;return MUSIC[k]}
+function musicName(){const k=S.settings.musicTheme||"auto";return k==="auto"||!MUSIC[k]?"Otomatis · "+curMusic().name:MUSIC[k].name}
+function musicChips(){const c=MUSIC[S.settings.musicTheme]?S.settings.musicTheme:"auto";return`<div class="chips mus-chips">${Object.keys(MUSIC).map(k=>`<button class="chip ${c===k?"on":""}" onclick="setMusicTheme('${k}')">${MUSIC[k].icon} ${esc(MUSIC[k].name)}</button>`).join("")}</div><p class="muted" style="margin:8px 0 0;font-size:12px">${esc(MUSIC[c].desc)}</p>`}
+function setMusicTheme(k){if(!MUSIC[k])return;S.settings.musicTheme=k;S.settings.siteMusic=true;save();SFX.unlock();SFX.site();syncSoundUI();paintPill();
+ document.querySelectorAll(".mus-slot").forEach(e=>e.innerHTML=musicChips());const n=$("musNow");if(n)n.textContent="Sedang dipakai: "+musicName();
+ toast(S.settings.sound===false?"Lagu dipilih, nyalakan 🔊 untuk mendengarnya":"Lagu: "+MUSIC[k].name)}
+function openMusic(){if(cur==="game"&&window.Game&&Game.pause)Game.pause();$("musSlot").innerHTML=musicChips();$("musNow").textContent="Sedang dipakai: "+musicName();$("musModal").classList.add("show")}
+function closeMusic(){$("musModal").classList.remove("show")}
+
+/* ================= EDIT PROFIL ================= */
+function applyProfile(){Object.assign(PROFILE,PROFILE_DEF,S.profile||{})}
+function openProfile(){if(cur==="game"&&window.Game&&Game.pause)Game.pause();
+ const m={pfNama:"nama",pfNim:"nim",pfIp:"ip",pfProdi:"prodi",pfUniv:"univ",pfKelas:"kelas",pfSem:"semester",pfPa:"pa",pfSks:"maxSks"};
+ Object.keys(m).forEach(i=>{$(i).value=PROFILE[m[i]]==null?"":PROFILE[m[i]]});$("profPrev").src=photo();$("profModal").classList.add("show");setTimeout(()=>$("pfNama").focus(),50)}
+function closeProfile(){$("profModal").classList.remove("show")}
+function saveProfile(){const g=i=>$(i).value.trim(),nama=g("pfNama");
+ if(!nama){SFX.error();toast("Nama tidak boleh kosong");return}
+ const ip=g("pfIp").replace(",",".");if(ip&&(!/^\d(\.\d{1,2})?$/.test(ip)||+ip>4)){SFX.error();toast("IP harus angka 0–4, contoh 3.35");return}
+ let sks=parseInt($("pfSks").value,10);if(!(sks>=1&&sks<=40))sks=PROFILE_DEF.maxSks;
+ S.profile={nama,nim:g("pfNim"),prodi:g("pfProdi")||PROFILE_DEF.prodi,univ:g("pfUniv")||PROFILE_DEF.univ,kelas:g("pfKelas"),semester:g("pfSem"),pa:g("pfPa"),ip:ip||"-",maxSks:sks};
+ applyProfile();save();SFX.add();closeProfile();renderChrome();refresh();toast("Profil diperbarui")}
+function resetProfile(){if(!confirm("Kembalikan data profil ke awal?"))return;delete S.profile;applyProfile();save();closeProfile();renderChrome();refresh();toast("Profil dikembalikan")}
+
 setTheme(document.documentElement.dataset.theme);buildNav();renderChrome();showPage("dashboard");checkReminders();setInterval(checkReminders,30*60*1000);
 </script>
 </body></html>
